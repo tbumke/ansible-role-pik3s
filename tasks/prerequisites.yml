@@ -1,0 +1,13 @@
+---
+
+- name: Install iptables
+  package:
+    name: iptables
+    state: present
+
+- name: Ensure cgroups are enabled
+  ansible.builtin.lineinfile:
+    path: /boot/firmware/cmdline.txt
+    regexp: '^(.*)rootwait$'
+    line: '\1 rootwait cgroup_memory=1 cgroup_enable=memory'
+    backrefs: yes
