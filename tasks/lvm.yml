@@ -5,6 +5,12 @@
     state: present
   tags: [lvm]
 
+- name: Install XFS utilities
+  ansible.builtin.package:
+    name: xfsprogs
+    state: present
+  tags: [lvm]
+
 - name: Create K3s volume group
   community.general.lvg:
     vg: "{{ pik3s_vg }}"
