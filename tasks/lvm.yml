@@ -1,0 +1,39 @@
+---
+- name: Install LVM2
+  ansible.builtin.package:
+    name: lvm2
+    state: present
+  tags: [lvm]
+
+- name: Create K3s volume group
+  community.general.lvg:
+    vg: "{{ pik3s_vg }}"
+    pvs: "{{ pik3s_pvs }}"
+    pvresize: "{{ pik3s_pvresize }}"
+  tags: [lvm, molecule-notest]
+
+- name: Create K3s logical volumes
+  community.general.lvol:
+    vg: "{{ pik3s_vg }}"
+    lv: "{{ item.name }}"
+    size: "{{ item.size }}"
+    resizefs: "{{ item.resizefs }}"
+  with_items: "{{ pik3s_lvs }}"
+  tags: [lvm, molecule-notest]
+
+- name: Format K3s logical volumes
+  community.general.filesystem:
+    fstype: "{{ item.fstype }}"
+    dev: "/dev/{{ pik3s_vg }}/{{ item.name }}"
+  with_items: "{{ pik3s_lvs }}"
+  tags: [lvm, molecule-notest]
+
+- name: Mount K3s logical volumes
+  ansible.posix.mount:
+    path: "{{ item.mount }}"
+    src: "/dev/{{ pik3s_vg }}/{{ item.name }}"
+    fstype: "{{ item.fstype }}"
+    opts: "{{ item.opts }}"
+    state: "{{ item.state }}"
+  with_items: "{{ pik3s_lvs }}"
+  tags: [lvm, molecule-notest]
