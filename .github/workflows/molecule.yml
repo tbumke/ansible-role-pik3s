@@ -1,0 +1,66 @@
+---
+name: Molecule
+'on':
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+defaults:
+  run:
+    working-directory: tbumke.pik3s
+
+env:
+  ANSIBLE_VERSION: 11.3.0
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          path: tbumke.pik3s
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install ansible==${{ env.ANSIBLE_VERSION }} ansible-lint yamllint
+
+      - name: Lint
+        run: |
+          ansible-lint .
+          yamllint .
+
+  molecule:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          path: tbumke.pik3s
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install ansible==${{ env.ANSIBLE_VERSION }} molecule molecule-plugins[docker] docker
+
+      - name: Molecule tests
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: debian12

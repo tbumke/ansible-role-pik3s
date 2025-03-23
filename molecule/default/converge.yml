@@ -1,0 +1,24 @@
+---
+- name: Converge
+  hosts: all
+
+  pre_tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+      when: ansible_os_family == 'Debian'
+      changed_when: false
+
+    - name: Create RPi firmware directory
+      ansible.builtin.file:
+        path: /boot/firmware
+        state: directory
+
+    - name: Create RPi cmdline.txt
+      ansible.builtin.shell: echo 'console=serial0,115200 console=tty1 root=PARTUUID=abcdef01-23 rootfstype=ext4 fsck.repair=yes rootwait' > /boot/firmware/cmdline.txt
+      args:
+        creates: /boot/firmware/cmdline.txt
+
+  roles:
+    - role: tbumke.pik3s

@@ -1,9 +1,14 @@
-#SPDX-License-Identifier: MIT-0
 ---
 # tasks file for tbumke.pik3s
 
 - name: Get facts
-  include_tasks: get_facts.yml
+  ansible.builtin.include_tasks: get_facts.yml
+  tags: [always]
 
 - name: Include prerequisites
-  include_tasks: prerequisites.yml
+  ansible.builtin.include_tasks: prerequisites.yml
+  tags: [always]
+
+- name: Include LVM tasks
+  ansible.builtin.include_tasks: lvm.yml
+  tags: [always]
