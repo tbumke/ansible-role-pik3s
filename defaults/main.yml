@@ -6,7 +6,7 @@ pik3s_pvs: /dev/sda
 pik3s_pvresize: true
 pik3s_lvs:
   - name: lv_k3s
-    size: 25%FREE
+    size: 25%VG
     resizefs: true
     vg: "{{ pik3s_vg }}"
     mount: /var/lib/rancher/k3s
