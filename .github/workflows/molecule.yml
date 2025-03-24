@@ -4,9 +4,17 @@ name: Molecule
   push:
     branches:
       - main
+    paths-ignore:
+      - README.md
+      - .ansible-lint.yml
+      - .yamllint.yml
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - README.md
+      - .ansible-lint.yml
+      - .yamllint.yml
 
 defaults:
   run:
