@@ -12,4 +12,4 @@ pik3s_lvs:
     mount: /var/lib/rancher/k3s
     fstype: xfs
     opts: defaults
-    state: present
+    state: mounted
