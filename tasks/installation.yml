@@ -10,7 +10,7 @@
     mode: "0755"
 
 - name: Install K3s
-  ansible.builtin.shell: /usr/local/bin/k3s-install.sh
+  ansible.builtin.command: /usr/local/bin/k3s-install.sh
   environment:
     INSTALL_K3S_SKIP_ENABLE: "true"
     INSTALL_K3S_VERSION: "{{ pik3s_version }}"
