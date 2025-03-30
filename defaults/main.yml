@@ -1,6 +1,8 @@
 ---
 # defaults file for tbumke.pik3s
 
+pik3s_debug: false
+pik3s_version: "v1.32.3+k3s1"
 pik3s_vg: vg_k3s
 pik3s_pvs: /dev/sda
 pik3s_pvresize: true

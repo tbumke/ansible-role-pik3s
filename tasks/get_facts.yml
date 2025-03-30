@@ -1,1 +1,17 @@
 ---
+
+- name: Get k3s installed version
+  ansible.builtin.command: k3s --version
+  register: k3s_version
+  changed_when: false
+  ignore_errors: true
+
+- name: Set k3s installed version
+  when: k3s_version.rc == 0
+  ansible.builtin.set_fact:
+    installed_k3s_version: "{{ k3s_version.stdout_lines[0].split(' ')[2] }}"
+
+- name: Print k3s installed version
+  when: k3s_version.rc == 0 and pik3s_debug
+  ansible.builtin.debug:
+    msg: "K3s installed version: {{ installed_k3s_version }}"
