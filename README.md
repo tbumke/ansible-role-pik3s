@@ -11,6 +11,8 @@ None.
 Role Variables
 --------------
 
+- **pik3s_debug**: Flag whether to enable debug logging (default: `false`)
+- **pik3s_version**: Version of K3s to download and install (default: `v1.32.3+k3s1`)
 - **pik3s_vg**: Name of K3s volume group (default: `vg_k3s`)
 - **pik3s_pvs**: List of comma-separated devices to use as physical volumes in the K3s volume group (default: `/dev/sda`)
 - **pik3s_pvresize:** Resize physical volume to the max. available size (default: `true`)
