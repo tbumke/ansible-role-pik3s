@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: pik3s
   author: tbumke
-  description: Raspberry Pi K3s cluster
+  description: Raspberry Pi HA K3s cluster
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
