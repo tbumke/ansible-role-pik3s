@@ -12,3 +12,8 @@
 - name: Include LVM tasks
   ansible.builtin.include_tasks: lvm.yml
   tags: [always]
+
+- name: Include installation tasks
+  when: installed_k3s_version is undefined or installed_k3s_version is version(pik3s_version, '<')
+  ansible.builtin.include_tasks: installation.yml
+  tags: [always]

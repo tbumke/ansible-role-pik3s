@@ -1,0 +1,19 @@
+---
+
+- name: Download K3s installation script
+  ansible.builtin.get_url:
+    url: https://get.k3s.io/
+    timeout: 120
+    dest: /usr/local/bin/k3s-install.sh
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install K3s
+  ansible.builtin.command: /usr/local/bin/k3s-install.sh
+  environment:
+    INSTALL_K3S_SKIP_ENABLE: "true"
+    INSTALL_K3S_VERSION: "{{ pik3s_version }}"
+    INSTALL_K3S_EXEC: server
+    INSTALL_K3S_NAME: k3s-server
+  changed_when: true
