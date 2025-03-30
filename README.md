@@ -1,12 +1,14 @@
 pik3s
 =========
 
-Ansible role to manage Raspberry Pi K3s cluster.
+Ansible role to manage Raspberry Pi HA K3s cluster.
+
+> Note: This role only supports the deployment of **server nodes**.
 
 Requirements
 ------------
 
-None.
+It is recommended that you use an external SSD. etcd is write intensive and neither SD cards nor eMMC cannot handle the IO load. See K3s' [requirements](https://docs.k3s.io/installation/requirements?os=pi) for Raspberry Pi for details.
 
 Role Variables
 --------------
