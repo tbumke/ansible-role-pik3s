@@ -12,3 +12,22 @@
     line: '\1 rootwait cgroup_memory=1 cgroup_enable=memory'
     backrefs: true
   tags: [prereq]
+
+- name: Download etcd release
+  ansible.builtin.get_url:
+    url: "https://github.com/etcd-io/etcd/releases/download/{{ pik3s_etcd_version }}/\
+      etcd-{{ pik3s_etcd_version }}-linux-arm64.tar.gz"
+    timeout: 120
+    dest: /root/etcd-{{ pik3s_etcd_version }}-linux-arm64.tar.gz
+    owner: root
+    group: root
+    mode: "0644"
+  tags: [prereq]
+
+- name: Install etcd binaries
+  ansible.builtin.unarchive:
+    src: /root/etcd-{{ pik3s_etcd_version }}-linux-arm64.tar.gz
+    dest: /usr/local/bin
+    remote_src: true
+    extra_opts: [--strip-components=1]
+  tags: [prereq]
