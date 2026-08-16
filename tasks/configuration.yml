@@ -1,0 +1,8 @@
+---
+
+- name: Make sure K3s service is enabled and started
+  ansible.builtin.systemd:
+    name: k3s-server
+    enabled: true
+    state: started
+  tags: [config]

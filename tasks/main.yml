@@ -17,3 +17,7 @@
   when: installed_k3s_version is undefined or installed_k3s_version is version(pik3s_version, '<')
   ansible.builtin.include_tasks: installation.yml
   tags: [always]
+
+- name: Include configuration tasks
+  ansible.builtin.include_tasks: configuration.yml
+  tags: [always]

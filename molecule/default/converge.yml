@@ -14,7 +14,7 @@
       changed_when: false
 
     - name: Create RPi firmware directory
-      ansible.builtin.file:
+      ansible.builtin.file:  # noqa: risky-file-permissions
         path: /boot/firmware
         state: directory
 
