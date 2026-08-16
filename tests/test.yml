@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Test role tbumke.pik3s
+  hosts: localhost
   remote_user: root
   roles:
     - tbumke.pik3s
